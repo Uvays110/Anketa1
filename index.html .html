@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tg"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fbf7f1">
+<title>Ариза · Заявка</title>
+<style>
+:root{color-scheme:light;--bg:#fbf7f1;--card:#fff;--t:#2a211b;--m:#7a6c60;--b:#e6dccf;--a:#c8501e;--ah:#a94016;--as:#f7e8dd;--no:#c0392b;--ok:#1f7a4d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{font:16px/1.55 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;line-height:1.15;margin:10px 0 8px}
+.wrap{max-width:560px;margin:0 auto;padding:14px 18px 48px}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.brand{font-weight:700;color:var(--a);letter-spacing:.02em}
+.lang{display:flex;border:1px solid var(--b);border-radius:999px;overflow:hidden;background:var(--card)}
+.lang button{border:0;background:none;padding:7px 14px;font:inherit;font-size:.9rem;font-weight:600;color:var(--m);cursor:pointer}
+.lang button.on{background:var(--t);color:var(--bg)}
+.lead{color:var(--m);margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--b);border-radius:16px;padding:20px}
+label,.q{display:block;font-weight:700;margin:16px 0 6px}
+.card>:first-child{margin-top:0}
+.hint{display:block;font-weight:400;font-size:.85rem;color:var(--m)}
+input[type=text],input[type=tel],textarea{width:100%;font:inherit;color:var(--t);background:var(--bg);border:2px solid var(--b);border-radius:11px;padding:12px 14px}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--a)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{font:inherit;font-weight:600;color:var(--t);background:var(--bg);border:2px solid var(--b);border-radius:999px;padding:9px 15px;cursor:pointer}
+.chips button.on{background:var(--as);border-color:var(--a);color:var(--ah)}
+.err{color:var(--no);font-size:.85rem;margin-top:4px;min-height:0}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;font:inherit;font-weight:700;border:2px solid var(--a);background:var(--a);color:#fff;border-radius:12px;padding:14px 18px;margin-top:20px;cursor:pointer}
+.btn:hover{background:var(--ah);border-color:var(--ah)}
+.btn.sec{background:var(--card);color:var(--a)}.btn.sec:hover{background:var(--as)}
+.hidden{display:none!important}
+.done p{color:var(--m);margin:6px 0}
+.ok{color:var(--ok);font-weight:600;text-align:center;margin-top:8px;min-height:1.5em}
+.sm{font-size:.85rem;color:var(--m);text-align:center;margin-top:14px}
+</style></head><body><div class="wrap">
+<div class="hd"><span class="brand">@uvays_10</span>
+ <div class="lang"><button id="btj" class="on">Тоҷикӣ</button><button id="bru">Русский</button></div></div>
+<h1 id="h1"></h1><p class="lead" id="ld"></p>
+<form id="form" class="card" novalidate>
+ <label for="nm" id="l1"></label><input type="text" id="nm" autocomplete="name"><div class="err" id="e1"></div>
+ <label for="ph" id="l2"></label><input type="tel" id="ph" autocomplete="tel" placeholder="+992 ..."><div class="err" id="e2"></div>
+ <label for="tg" id="l3"></label><input type="text" id="tg" autocapitalize="off" autocorrect="off" placeholder="@username">
+ <div class="q" id="l4"></div><div class="chips" id="c4"></div><div class="err" id="e4"></div>
+ <label for="pr" id="l5"></label><textarea id="pr"></textarea>
+ <div class="q" id="l6"></div><div class="chips" id="c6"></div>
+ <button type="submit" class="btn" id="sub"></button>
+</form>
+<div id="done" class="card done hidden">
+ <h1 id="dh" style="margin-top:0"></h1><p id="dp"></p>
+ <a class="btn" id="tgl" target="_blank" rel="noopener"></a>
+ <button class="btn sec" id="cp" type="button"></button>
+ <div class="ok" id="okm"></div>
+ <p class="sm" id="dn"></p>
+ <button class="btn sec" id="back" type="button"></button>
+</div>
+</div>
+<script>
+(function(){
+var TG="uvays_10",L="tj",K=null,D=null,msg="";
+var $=function(i){return document.getElementById(i)};
+var KIND=[{tj:"Сайт",ru:"Сайт"},{tj:"Анкета",ru:"Анкета"},{tj:"Ҳам сайт, ҳам анкета",ru:"И сайт, и анкета"}];
+var DUE=[{tj:"Зудтар",ru:"Как можно скорее"},{tj:"Дар як ҳафта",ru:"За неделю"},{tj:"Дар як моҳ",ru:"За месяц"},{tj:"Ҳоло намедонам",ru:"Пока не знаю"}];
+var T={
+tj:{h1:"Барои сохтани сайт ва анкета ариза гузоред",ld:"5 саволи кӯтоҳ. Ҷавобҳоро дида, худамон бо шумо тамос мегирем.",l1:"Ном ва насаб",l2:'Рақами телефон <span class="hint">Рақами WhatsApp бо коди давлат</span>',l3:'Telegram <span class="hint">ихтиёрӣ, бо @ оғоз мешавад</span>',l4:"Чӣ сохтан лозим аст?",l5:"Барои чӣ ва дар кадом соҳа лозим аст?",l6:"Кай тайёр шавад?",sub:"Ариза фиристодан",e1:"Номи худро нависед",e2:"Рақами телефонро дуруст нависед",e4:"Яктоашро интихоб кунед",dh:"Ариза тайёр аст!",dp:"Ҳоло Telegram-ро кушоед ва тугмаи фиристодани паёмро пахш кунед. Матни ариза аллакай навишта шудааст.",tgl:"Кушодани Telegram",cp:"Нусхабардории матн",okm:"Нусха шуд",dn:"Агар Telegram матнро худаш наоварад, онро нусха карда, ба @"+TG+" фиристед.",back:"Бозгашт"},
+ru:{h1:"Оставьте заявку на создание сайта и анкеты",ld:"5 коротких вопросов. Посмотрим ответы и сами свяжемся с вами.",l1:"Имя и фамилия",l2:'Номер телефона <span class="hint">Номер WhatsApp с кодом страны</span>',l3:'Telegram <span class="hint">необязательно, начинается с @</span>',l4:"Что нужно создать?",l5:"Для чего и в какой сфере это нужно?",l6:"Когда нужно, чтобы было готово?",sub:"Отправить заявку",e1:"Напишите ваше имя",e2:"Введите номер телефона правильно",e4:"Выберите один вариант",dh:"Заявка готова!",dp:"Теперь откройте Telegram и нажмите отправку сообщения. Текст заявки уже написан.",tgl:"Открыть Telegram",cp:"Скопировать текст",okm:"Скопировано",dn:"Если Telegram не подставил текст сам, скопируйте его и отправьте на @"+TG+".",back:"Назад"}};
+function chips(id,arr,key){
+ var box=$(id);box.innerHTML="";
+ arr.forEach(function(o,i){var b=document.createElement("button");b.type="button";b.textContent=o[L];
+  b.className=(key==="K"?K:D)===i?"on":"";
+  b.onclick=function(){if(key==="K"){K=K===i?null:i;$("e4").textContent=""}else D=D===i?null:i;chips(id,arr,key)};
+  box.appendChild(b)});
+}
+function apply(){
+ var t=T[L];document.documentElement.lang=L==="tj"?"tg":"ru";
+ ["h1","ld","l1","l2","l3","l4","l5","l6","sub","dh","dp","tgl","cp","okm","dn","back"].forEach(function(k){$(k).innerHTML=t[k]});
+ $("okm").textContent="";
+ $("btj").className=L==="tj"?"on":"";$("bru").className=L==="ru"?"on":"";
+ chips("c4",KIND,"K");chips("c6",DUE,"D");
+ ["e1","e2","e4"].forEach(function(k){if($(k).textContent)$(k).textContent=t[k]});
+}
+$("btj").onclick=function(){L="tj";apply()};$("bru").onclick=function(){L="ru";apply()};
+$("form").addEventListener("submit",function(e){
+ e.preventDefault();var t=T[L],bad=false;
+ var nm=$("nm").value.trim().replace(/\s+/g," "),ph=$("ph").value.trim(),tg=$("tg").value.trim(),pr=$("pr").value.trim();
+ $("e1").textContent=nm?"":t.e1;$("e2").textContent=ph.replace(/\D/g,"").length>=7?"":t.e2;$("e4").textContent=K===null?t.e4:"";
+ if(!nm||ph.replace(/\D/g,"").length<7||K===null){var f=!nm?$("nm"):ph.replace(/\D/g,"").length<7?$("ph"):$("c4");f.scrollIntoView({block:"center"});return}
+ if(tg&&tg.charAt(0)!=="@")tg="@"+tg;
+ msg="Новая заявка (сайт / анкета)\n\nИмя: "+nm+"\nТелефон (WhatsApp): "+ph+"\nTelegram: "+(tg||"не указан")+"\nНужно создать: "+KIND[K].ru+"\nСфера и цель: "+(pr||"не указано")+"\nСрок: "+(D===null?"не указан":DUE[D].ru)+"\nЯзык анкеты: "+(L==="tj"?"тоҷикӣ":"русский");
+ $("tgl").href="https://t.me/"+TG+"?text="+encodeURIComponent(msg);
+ $("form").classList.add("hidden");$("done").classList.remove("hidden");window.scrollTo(0,0);
+});
+$("cp").onclick=function(){
+ var ok=false;
+ function fin(v){$("okm").textContent=v?T[L].okm:"";}
+ try{navigator.clipboard.writeText(msg).then(function(){fin(true)},function(){fin(old())})}catch(e){fin(old())}
+ function old(){try{var a=document.createElement("textarea");a.value=msg;a.style.cssText="position:fixed;opacity:0";document.body.appendChild(a);a.select();var r=document.execCommand("copy");document.body.removeChild(a);return r}catch(e){return false}}
+};
+$("back").onclick=function(){$("done").classList.add("hidden");$("form").classList.remove("hidden");$("okm").textContent=""};
+apply();
+})();
+</script></body></html>
